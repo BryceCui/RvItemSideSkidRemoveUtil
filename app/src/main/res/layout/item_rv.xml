@@ -2,17 +2,49 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
+<com.cuipengyu.rvitemsideskidremoveutil.SwipeMenuLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/item_connext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/duo_a"
+            android:clickable="true"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/duo_a"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/timg" />
+
+    </RelativeLayout>
     <LinearLayout
-        android:layout_gravity="right"
+        android:id="@+id/delete_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="right"
         android:orientation="horizontal">
+
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
+
         <TextView
             android:id="@+id/delete"
             android:layout_width="90dp"
@@ -31,13 +63,5 @@
             android:text="更多"
             android:textColor="#ffffff" />
     </LinearLayout>
-
-    <TextView
-        android:background="#bcbaba"
-        android:id="@+id/list_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:gravity="center" />
-
+</com.cuipengyu.rvitemsideskidremoveutil.SwipeMenuLayout>
 </FrameLayout>
