@@ -3,65 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="horizontal">
-<com.cuipengyu.rvitemsideskidremoveutil.SwipeMenuLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-
-    <RelativeLayout
-        android:clickable="true"
-        android:focusable="true"
-        android:id="@+id/item_connext"
+    <com.cuipengyu.rvitemsideskidremoveutil.RvItemRemoveHelperUtil
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/list_item"
+
+        <RelativeLayout
+            android:id="@+id/item_connext"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/duo_a"
-            android:clickable="true"
-            android:gravity="center" />
-
-        <ImageView
-            android:id="@+id/duo_a"
-            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/timg" />
+            android:background="#ffffff"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
 
-    </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/delete_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/list_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/duo_a"
+                android:clickable="true"
+                android:gravity="center" />
 
-        <Space
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/duo_a"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/timg" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/delete_layout"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_gravity="right"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/delete"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:background="#f63f3f"
-            android:gravity="center"
-            android:text="删除"
-            android:textColor="#ffffff" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/more"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:background="#fed494"
-            android:gravity="center"
-            android:text="更多"
-            android:textColor="#ffffff" />
-    </LinearLayout>
-</com.cuipengyu.rvitemsideskidremoveutil.SwipeMenuLayout>
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:background="#f63f3f"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/more"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:background="#fed494"
+                android:gravity="center"
+                android:text="更多"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </com.cuipengyu.rvitemsideskidremoveutil.RvItemRemoveHelperUtil>
 </FrameLayout>

@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity  {
         main_rv.setLayoutManager(manager);
         mAdapter = new RecycleViewAdapter(this, mDdat);
         main_rv.setAdapter(mAdapter);
-
     }
 
 
