@@ -51,8 +51,7 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
     private PointF mFirstP = new PointF();
     private boolean isUserSwiped;
     private VelocityTracker mVelocityTracker;//滑动速度变量
-    private LinkedList<View> mViews;
-     /**
+    /**
      * 右滑删除功能的开关,默认开
      */
     private boolean isSwipeEnable;
@@ -107,7 +106,6 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
         isIos = true;
         //左滑右滑的开关,默认左滑打开菜单
         isLeftSwipe = true;
-        mViews=new LinkedList<>();
     }
 
     @Override
@@ -118,7 +116,7 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
             final VelocityTracker verTracker = mVelocityTracker;
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    Log.e("dispatchTouchEvent","ACTION_DOWN");
+                    Log.e("dispatchTouchEvent", "ACTION_DOWN");
                     isUserSwiped = false;//2016 11 03 add,判断手指起始落点，如果距离属于滑动了，就屏蔽一切点击事件。
                     isUnMoved = true;//2016 10 22 add , 仿QQ，侧滑菜单展开时，点击内容区域，关闭侧滑菜单。
                     iosInterceptFlag = false;//add by 2016 09 11 ，每次DOWN时，默认是不拦截的
@@ -133,13 +131,17 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
                         //只要有一个侧滑菜单处于打开状态， 就不给外层布局上下滑动了
                         getParent().requestDisallowInterceptTouchEvent(true);
                     }
+
                     //求第一个触点的id， 此时可能有多个触点，但至少一个，计算滑动速率用
                     mPointerId = ev.getPointerId(0);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    Log.e("dispatchTouchEvent","ACTION_MOVE");
+                    Log.e("dispatchTouchEvent", "ACTION_MOVE");
 
                     //add by 2016 09 11 ，IOS模式开启的话，且当前有侧滑菜单的View，且不是自己的，就该拦截事件咯。滑动也不该出现
+                    /**
+                     * 直接结束返回不执行ontouch的move和up，dispatchtouch的uo方法 ，用来是否开启ios交互
+                     */
                     if (iosInterceptFlag) {
                         break;
                     }
@@ -178,7 +180,7 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
-                    Log.e("dispatchTouchEvent","ACTION_CANCEL");
+                    Log.e("dispatchTouchEvent", "ACTION_CANCEL");
 
                     //2016 11 03 add,判断手指起始落点，如果距离属于滑动了，就屏蔽一切点击事件。
                     if (Math.abs(ev.getRawX() - mFirstP.x) > mScaleTouchSlop) {
@@ -241,13 +243,13 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
         if (isSwipeEnable) {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    Log.e("onInterceptTouchEvent","ACTION_DOWN");
+                    Log.e("onInterceptTouchEvent", "ACTION_DOWN");
 
                     break;
                 //add by zhangxutong 2016 11 04 begin :
                 // fix 长按事件和侧滑的冲突。
                 case MotionEvent.ACTION_MOVE:
-                    Log.e("onInterceptTouchEvent","ACTION_MOVE");
+                    Log.e("onInterceptTouchEvent", "ACTION_MOVE");
 
                     //屏蔽滑动时的事件
                     if (Math.abs(ev.getRawX() - mFirstP.x) > mScaleTouchSlop) {
@@ -256,7 +258,7 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
                     break;
                 //add by zhangxutong 2016 11 04 end
                 case MotionEvent.ACTION_UP:
-                    Log.e("onInterceptTouchEvent","ACTION_UP");
+                    Log.e("onInterceptTouchEvent", "ACTION_UP");
 
                     //为了在侧滑时，屏蔽子View的点击事件
                     if (isLeftSwipe) {
@@ -317,7 +319,7 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
         //LogUtils.e(TAG, "onLayout() called with: " + "changed = [" + changed + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
         int childCount = getChildCount();
         int left = getPaddingLeft();
-        int right =getPaddingLeft();
+        int right = getPaddingLeft();
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
             if (childView.getVisibility() != GONE) {
@@ -337,6 +339,11 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
             }
         }
         //Log.d(TAG, "onLayout() called with: " + "maxScrollGap = [" + maxScrollGap + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
     }
 
     /**
@@ -363,7 +370,6 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
         if (null != mContentView) {
             mContentView.setLongClickable(true);
         }
-
         cancelAnim();
         mCloseAnim = ValueAnimator.ofInt(getScrollX(), 0);
         mCloseAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -377,7 +383,6 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 isExpand = false;
-
             }
         });
         mCloseAnim.setDuration(300).start();
@@ -387,12 +392,10 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
         isOpen = true;
         //展开就加入ViewCache：
         mViewCache = RvItemRemoveHelperUtil.this;
-
         //2016 11 13 add 侧滑菜单展开，屏蔽content长按
         if (null != mContentView) {
             mContentView.setLongClickable(false);
         }
-
         cancelAnim();
         mExpandAnim = ValueAnimator.ofInt(getScrollX(), isLeftSwipe ? mRightMenuWidths : -mRightMenuWidths);
         mExpandAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -445,10 +448,7 @@ public class RvItemRemoveHelperUtil extends ViewGroup {
         }
         return super.performLongClick();
     }
-    @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new MarginLayoutParams(getContext(), attrs);
-    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //Log.d(TAG, "onMeasure() called with: " + "widthMeasureSpec = [" + widthMeasureSpec + "], heightMeasureSpec = [" + heightMeasureSpec + "]");
